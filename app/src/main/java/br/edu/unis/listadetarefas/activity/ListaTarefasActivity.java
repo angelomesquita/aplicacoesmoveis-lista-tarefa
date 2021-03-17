@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 import br.edu.unis.listadetarefas.R;
 import br.edu.unis.listadetarefas.model.Tarefa;
@@ -55,12 +59,33 @@ public class ListaTarefasActivity extends AppCompatActivity {
     }
 
     private void configurarListaTarefas() {
+        final ArrayList<Tarefa> tarefas = dao.buscaTodos();
+
         ArrayAdapter<Tarefa> adapter = new ArrayAdapter<>(
                 ListaTarefasActivity.this,
                 android.R.layout.simple_list_item_1,
-                dao.buscaTodos()
+                tarefas
         );
 
         listaTarefa.setAdapter(adapter);
+
+        listaTarefa.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Tarefa tarefaSelecionada = tarefas.get(position);
+
+                Intent i = new Intent(
+                        ListaTarefasActivity.this,
+                        FormularioTarefaActivity.class
+                );
+
+                i.putExtra("tarefaSelecionada", tarefaSelecionada);
+                startActivity(i);
+            }
+        });
     }
 }
+
+
+
+

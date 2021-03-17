@@ -17,6 +17,16 @@
         android:inputType="textCapWords"
         android:hint="Digite o titulo da tarefa" />
 
+    <EditText
+        android:id="@+id/edit_add_descricao_tarefa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:inputType="textCapWords"
+        android:hint="Digite a descricao da tarefa" />
+
     <Button
         android:id="@+id/btn_add_tarefa"
         android:layout_width="match_parent"

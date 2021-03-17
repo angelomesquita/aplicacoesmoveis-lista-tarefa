@@ -1,19 +1,42 @@
 package br.edu.unis.listadetarefas.model;
 
-public class Tarefa {
+import java.io.Serializable;
 
+public class Tarefa implements Serializable {
+
+    private int id;
     private String titulo;
     private String descricao;
+    private static int contadorId = 1;
 
-    public Tarefa(String titulo) {
+    public Tarefa(String titulo, String descricao) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.id = contadorId;
+        contadorId++;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
-    /**
-     * @todo Voltar ao normal após modificar o adapter
-     * @return String titulo da tarefa
-     */
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public String toString() {
-       return this.titulo;
+       return this.id + " - " + this.titulo + " (" +this.descricao + ")";
     }
 }
