@@ -2,9 +2,7 @@ package br.edu.unis.listadetarefas.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,9 +26,34 @@ public class FormularioTarefaActivity extends AppCompatActivity {
         setTitle("Cadastrar Tarefa");
 
         carregarWidgets();
-        configurarBotaoAdd();
+        configurarBotaoPersistencia();
+        verificarTemExtra();
+    }
 
-        if (getIntent().hasExtra("tarefaSelecionada")) {
+    private void carregarWidgets() {
+        editTituloTarefa = findViewById(R.id.edit_add_titulo_tarefa);
+        editDescricaoTarefa = findViewById(R.id.edit_add_descricao_tarefa);
+        btnAdicionar = findViewById(R.id.btn_add_tarefa);
+    }
+
+    private void configurarBotaoPersistencia() {
+        btnAdicionar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popularTarefa();
+                if (ehEdicaoTarefa()) {
+                    editarTarefa();
+                } else {
+                    salvarTarefa();
+                }
+
+                finish();
+            }
+        });
+    }
+
+    private void verificarTemExtra() {
+        if (ehEdicaoTarefa()) {
             setTitle("Editar Tarefa");
 
             tarefa = (Tarefa) getIntent()
@@ -43,39 +66,42 @@ public class FormularioTarefaActivity extends AppCompatActivity {
         }
     }
 
-    private void configurarBotaoAdd() {
-        btnAdicionar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                salvarTarefa();
-                finish();
-            }
-        });
+    private boolean ehEdicaoTarefa() {
+        if (getIntent().hasExtra("tarefaSelecionada")) {
+            return true;
+        }
+        return false;
     }
 
-    private void carregarWidgets() {
-        editTituloTarefa = findViewById(R.id.edit_add_titulo_tarefa);
-        editDescricaoTarefa = findViewById(R.id.edit_add_descricao_tarefa);
-        btnAdicionar = findViewById(R.id.btn_add_tarefa);
-    }
-
-    private void salvarTarefa() {
-        if (tarefa == null) {
+    private void popularTarefa() {
+        if (ehEdicaoTarefa()) {
+            tarefa.setTitulo(editTituloTarefa.getText().toString());
+            tarefa.setDescricao(editDescricaoTarefa.getText().toString());
+        } else {
             tarefa = new Tarefa(
                     editTituloTarefa.getText().toString(),
                     editDescricaoTarefa.getText().toString()
             );
-            dao.salvar(tarefa);
-
-            Toast.makeText(
-                    FormularioTarefaActivity.this,
-                    "Tarefa Adicionada",
-                    Toast.LENGTH_SHORT
-            ).show();
-        } else {
-            tarefa.setTitulo(editTituloTarefa.getText().toString());
-            tarefa.setDescricao(editDescricaoTarefa.getText().toString());
-            dao.editar(tarefa);
         }
+    }
+
+    private void salvarTarefa() {
+        dao.salvar(tarefa);
+
+        Toast.makeText(
+                FormularioTarefaActivity.this,
+                "Tarefa Adicionada",
+                Toast.LENGTH_SHORT
+        ).show();
+    }
+
+    private void editarTarefa() {
+        dao.editar(tarefa);
+
+        Toast.makeText(
+                FormularioTarefaActivity.this,
+                "Tarefa Editada",
+                Toast.LENGTH_SHORT
+        ).show();
     }
 }

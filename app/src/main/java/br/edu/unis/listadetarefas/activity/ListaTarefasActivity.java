@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,8 +47,6 @@ public class ListaTarefasActivity extends AppCompatActivity {
         fabAddTarefa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(MainActivity.this, "Tarefa Criada!", Toast.LENGTH_LONG).show();
-
                 startActivity(new Intent(
                         ListaTarefasActivity.this,
                         FormularioTarefaActivity.class
@@ -61,6 +58,11 @@ public class ListaTarefasActivity extends AppCompatActivity {
     private void configurarListaTarefas() {
         final ArrayList<Tarefa> tarefas = dao.buscaTodos();
 
+        configurarAdapterLista(tarefas);
+        configurarAcaoClickLista(tarefas);
+    }
+
+    private void configurarAdapterLista(ArrayList<Tarefa> tarefas) {
         ArrayAdapter<Tarefa> adapter = new ArrayAdapter<>(
                 ListaTarefasActivity.this,
                 android.R.layout.simple_list_item_1,
@@ -68,7 +70,9 @@ public class ListaTarefasActivity extends AppCompatActivity {
         );
 
         listaTarefa.setAdapter(adapter);
+    }
 
+    private void configurarAcaoClickLista(ArrayList<Tarefa> tarefas) {
         listaTarefa.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -78,8 +82,8 @@ public class ListaTarefasActivity extends AppCompatActivity {
                         ListaTarefasActivity.this,
                         FormularioTarefaActivity.class
                 );
-
                 i.putExtra("tarefaSelecionada", tarefaSelecionada);
+
                 startActivity(i);
             }
         });

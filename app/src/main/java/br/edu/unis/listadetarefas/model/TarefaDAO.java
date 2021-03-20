@@ -1,7 +1,5 @@
 package br.edu.unis.listadetarefas.model;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 public class TarefaDAO {
