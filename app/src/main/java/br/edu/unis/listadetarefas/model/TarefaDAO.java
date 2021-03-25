@@ -10,7 +10,7 @@ public class TarefaDAO {
         tarefas.add(tarefa);
     }
 
-    public ArrayList<Tarefa> buscaTodos() {
+    public ArrayList<Tarefa> buscarTodos() {
         return new ArrayList<>(tarefas);
     }
 
@@ -29,6 +29,14 @@ public class TarefaDAO {
         if (tarefaEditada != null) {
             int posicaoTarefa = tarefas.indexOf(tarefaEditada);
             tarefas.set(posicaoTarefa, tarefa);
+        }
+    }
+
+    public void remover(Tarefa tarefa) {
+        Tarefa tarefaParaRemover = buscarTarefaPeloId(tarefa);
+
+        if(tarefaParaRemover != null) {
+            tarefas.remove(tarefaParaRemover);
         }
     }
 }
