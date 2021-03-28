@@ -41,6 +41,18 @@ public class FormularioTarefaActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.formulario_tarefa_menu_salvar:
+                if (camposPreenchidos()) {
+                    persistirTarefa();
+                } else {
+                    Toast.makeText(
+                    FormularioTarefaActivity.this,
+                    "Os campos precisam estar preenchidos",
+                    Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -54,16 +66,32 @@ public class FormularioTarefaActivity extends AppCompatActivity {
         btnAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popularTarefa();
-                if (ehEdicaoTarefa()) {
-                    editarTarefa();
+                if (camposPreenchidos()) {
+                    persistirTarefa();
                 } else {
-                    salvarTarefa();
+                    Toast.makeText(
+                    FormularioTarefaActivity.this,
+                    "Os campos precisam estar preenchidos",
+                    Toast.LENGTH_SHORT).show();
                 }
-
-                finish();
             }
         });
+    }
+
+    private boolean camposPreenchidos() {
+        return !editTituloTarefa.getText().toString().isEmpty()
+            && !editDescricaoTarefa.getText().toString().isEmpty();
+    }
+
+    private void persistirTarefa() {
+        popularTarefa();
+        if (ehEdicaoTarefa()) {
+            editarTarefa();
+        } else {
+            salvarTarefa();
+        }
+
+        finish();
     }
 
     private void verificarTemExtra() {
