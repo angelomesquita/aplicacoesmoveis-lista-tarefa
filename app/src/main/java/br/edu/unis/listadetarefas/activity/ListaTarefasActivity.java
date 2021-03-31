@@ -3,19 +3,20 @@ package br.edu.unis.listadetarefas.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import br.edu.unis.listadetarefas.R;
+import br.edu.unis.listadetarefas.adapter.ListaTarefaAdapter;
 import br.edu.unis.listadetarefas.model.Tarefa;
 import br.edu.unis.listadetarefas.model.TarefaDAO;
 
@@ -24,7 +25,7 @@ public class ListaTarefasActivity extends AppCompatActivity {
 
     private ListView listaTarefa;
     private FloatingActionButton fabAddTarefa;
-    private ArrayAdapter<Tarefa> adapter;
+    private ListaTarefaAdapter adapter;
     final static TarefaDAO dao = new TarefaDAO();
 
     @Override
@@ -56,10 +57,18 @@ public class ListaTarefasActivity extends AppCompatActivity {
     private void selecionarAcaoMenuContexto(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.lista_tarefas_menu_remover:
-                removerTarefa(item);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+                alertDialog.setTitle("Remover a tarefa?")
+                    .setPositiveButton("Sim",(dialog, which) -> removerTarefa(item))
+                    .setNegativeButton("Não", (dialog, which) -> {
+
+                    })
+                    .show();
+
                 break;
             case R.id.lista_tarefas_menu_ajuda:
-                Toast.makeText(this, "Hoje não!!!", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Hoje não!!!", Toast.LENGTH_LONG).show();
                 break;
         }
     }
@@ -68,7 +77,7 @@ public class ListaTarefasActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo menuInfo =
                 (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        Tarefa tarefaSelecionada = adapter.getItem(menuInfo.position);
+        Tarefa tarefaSelecionada = (Tarefa) adapter.getItem(menuInfo.position);
 
         dao.remover(tarefaSelecionada);
         adapter.remove(tarefaSelecionada);
@@ -87,15 +96,10 @@ public class ListaTarefasActivity extends AppCompatActivity {
     }
 
     private void configurarFABAddTarefa() {
-        fabAddTarefa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(
-                        ListaTarefasActivity.this,
-                        FormularioTarefaActivity.class
-                ));
-            }
-        });
+        fabAddTarefa.setOnClickListener(v -> startActivity(new Intent(
+                ListaTarefasActivity.this,
+                FormularioTarefaActivity.class
+        )));
     }
 
     private void configurarListaTarefas() {
@@ -110,11 +114,7 @@ public class ListaTarefasActivity extends AppCompatActivity {
     }
 
     private void configurarAdapterLista() {
-        adapter = new ArrayAdapter<>(
-                ListaTarefasActivity.this,
-                android.R.layout.simple_list_item_1
-        );
-
+        adapter = new ListaTarefaAdapter(this);
         listaTarefa.setAdapter(adapter);
     }
 
@@ -124,19 +124,16 @@ public class ListaTarefasActivity extends AppCompatActivity {
     }
 
     private void configurarClickLista() {
-        listaTarefa.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Tarefa tarefaSelecionada = (Tarefa) parent.getItemAtPosition(position);
+        listaTarefa.setOnItemClickListener((parent, view, position, id) -> {
+            Tarefa tarefaSelecionada = (Tarefa) parent.getItemAtPosition(position);
 
-                Intent i = new Intent(
-                        ListaTarefasActivity.this,
-                        FormularioTarefaActivity.class
-                );
-                i.putExtra("tarefaSelecionada", tarefaSelecionada);
+            Intent i = new Intent(
+                    ListaTarefasActivity.this,
+                    FormularioTarefaActivity.class
+            );
+            i.putExtra("tarefaSelecionada", tarefaSelecionada);
 
-                startActivity(i);
-            }
+            startActivity(i);
         });
     }
 

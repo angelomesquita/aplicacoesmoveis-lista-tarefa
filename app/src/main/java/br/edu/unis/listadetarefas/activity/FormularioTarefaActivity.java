@@ -3,11 +3,10 @@ package br.edu.unis.listadetarefas.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,7 +17,6 @@ import br.edu.unis.listadetarefas.model.TarefaDAO;
 public class FormularioTarefaActivity extends AppCompatActivity {
 
     EditText editTituloTarefa, editDescricaoTarefa;
-    Button btnAdicionar;
     Tarefa tarefa;
     final static TarefaDAO dao = new TarefaDAO();
 
@@ -29,7 +27,6 @@ public class FormularioTarefaActivity extends AppCompatActivity {
         setTitle("Cadastrar Tarefa");
 
         carregarWidgets();
-        configurarBotaoPersistencia();
         verificarTemExtra();
     }
 
@@ -39,43 +36,31 @@ public class FormularioTarefaActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.formulario_tarefa_menu_salvar:
-                if (camposPreenchidos()) {
-                    persistirTarefa();
-                } else {
-                    Toast.makeText(
-                    FormularioTarefaActivity.this,
-                    "Os campos precisam estar preenchidos",
-                    Toast.LENGTH_SHORT).show();
-                }
+                validarCamposPreenchidos();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void validarCamposPreenchidos() {
+        if (camposPreenchidos()) {
+            persistirTarefa();
+        } else {
+            Toast.makeText(
+            FormularioTarefaActivity.this,
+            "Os campos precisam estar preenchidos",
+            Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void carregarWidgets() {
         editTituloTarefa = findViewById(R.id.edit_add_titulo_tarefa);
         editDescricaoTarefa = findViewById(R.id.edit_add_descricao_tarefa);
-        btnAdicionar = findViewById(R.id.btn_add_tarefa);
-    }
-
-    private void configurarBotaoPersistencia() {
-        btnAdicionar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (camposPreenchidos()) {
-                    persistirTarefa();
-                } else {
-                    Toast.makeText(
-                    FormularioTarefaActivity.this,
-                    "Os campos precisam estar preenchidos",
-                    Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     private boolean camposPreenchidos() {
@@ -103,16 +88,11 @@ public class FormularioTarefaActivity extends AppCompatActivity {
 
             editTituloTarefa.setText(tarefa.getTitulo());
             editDescricaoTarefa.setText(tarefa.getDescricao());
-
-            btnAdicionar.setText("Editar");
         }
     }
 
     private boolean ehEdicaoTarefa() {
-        if (getIntent().hasExtra("tarefaSelecionada")) {
-            return true;
-        }
-        return false;
+        return getIntent().hasExtra("tarefaSelecionada");
     }
 
     private void popularTarefa() {

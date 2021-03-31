@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Tarefa implements Serializable {
 
-    private int id;
+    private final int id;
     private String titulo;
     private String descricao;
     private static int contadorId = 1;
@@ -36,7 +36,4 @@ public class Tarefa implements Serializable {
         this.descricao = descricao;
     }
 
-    public String toString() {
-       return this.id + " - " + this.titulo + " (" +this.descricao + ")";
-    }
 }

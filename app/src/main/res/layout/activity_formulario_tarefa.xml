@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.FormularioTarefaActivity">
 
-    <EditText
-        android:id="@+id/edit_add_titulo_tarefa"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:ems="10"
-        android:inputType="textCapWords"
-        android:hint="Digite o titulo da tarefa" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/edit_add_descricao_tarefa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:ems="10"
-        android:inputType="textCapWords"
-        android:hint="Digite a descricao da tarefa" />
+        <EditText
+            android:id="@+id/edit_add_titulo_tarefa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:ems="10"
+            android:inputType="textCapWords"
+            android:hint="Digite o titulo da tarefa"
+            android:autofillHints="" />
 
-    <Button
-        android:id="@+id/btn_add_tarefa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Adicionar" />
+        <EditText
+            android:id="@+id/edit_add_descricao_tarefa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:ems="10"
+            android:inputType="textCapWords"
+            android:hint="Digite a descricao da tarefa"
+            android:autofillHints="" />
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
