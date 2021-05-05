@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Lista de Tarefas</string>
+    <string name="texto_lista_de_tarefas">Lista de Tarefas</string>
+    <string name="texto_logotipo_do_app">Logotipo do App</string>
 </resources>
