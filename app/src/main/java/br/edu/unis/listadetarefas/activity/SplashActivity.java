@@ -3,8 +3,11 @@ package br.edu.unis.listadetarefas.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+
+import java.text.Normalizer;
 
 import br.edu.unis.listadetarefas.R;
 
@@ -26,17 +29,30 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                abreListaTarefas();
+                if(temCredenciaisSalvas()) {
+                    abreListaDeTarefas();
+                } else {
+                    abreFormularioDeLogin();
+                }
+                finish();
             }
         }, TEMPO_DE_ATRASO);
     }
 
+    private void abreListaDeTarefas() {
+        startActivity(new Intent(this, ListaTarefasActivity.class));
+    }
 
-    private void abreListaTarefas() {
-        Intent intent = new Intent(
-            this,
-            ListaTarefasActivity.class
-        );
-        startActivity(intent);
+    private void abreFormularioDeLogin() {
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    private boolean temCredenciaisSalvas() {
+        SharedPreferences credenciais = getSharedPreferences("credenciais", MODE_PRIVATE);
+        if (credenciais.contains("credencial_usuario")) {
+            return true;
+        }
+
+        return false;
     }
 }
