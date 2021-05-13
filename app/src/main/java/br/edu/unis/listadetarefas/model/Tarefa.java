@@ -1,10 +1,16 @@
 package br.edu.unis.listadetarefas.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity
 public class Tarefa implements Serializable {
 
-    private final int id;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     private String titulo;
     private String descricao;
     private static int contadorId = 1;
@@ -26,6 +32,10 @@ public class Tarefa implements Serializable {
 
     public String getDescricao() {
         return descricao;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setTitulo(String titulo) {

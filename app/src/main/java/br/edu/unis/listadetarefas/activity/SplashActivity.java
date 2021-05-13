@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
-import java.text.Normalizer;
-
 import br.edu.unis.listadetarefas.R;
 
 public class SplashActivity extends AppCompatActivity {

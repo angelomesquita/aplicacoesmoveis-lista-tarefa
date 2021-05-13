@@ -2,6 +2,7 @@ package br.edu.unis.listadetarefas.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -12,22 +13,28 @@ import android.widget.Toast;
 
 import br.edu.unis.listadetarefas.R;
 import br.edu.unis.listadetarefas.model.Tarefa;
-import br.edu.unis.listadetarefas.model.TarefaDAO;
+import br.edu.unis.listadetarefas.room.TarefaDatabase;
+import br.edu.unis.listadetarefas.room.dao.RoomTarefaDAO;
 
 public class FormularioTarefaActivity extends AppCompatActivity {
 
     EditText editTituloTarefa, editDescricaoTarefa;
     Tarefa tarefa;
-    final static TarefaDAO dao = new TarefaDAO();
+    private RoomTarefaDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_tarefa);
         setTitle("Cadastrar Tarefa");
-
         carregarWidgets();
         verificarTemExtra();
+
+        dao = Room.databaseBuilder(this, TarefaDatabase.class, "listadetarefas.db")
+                .allowMainThreadQueries()
+                .build()
+                .getRoomTarefaDAO();
+
     }
 
     @Override

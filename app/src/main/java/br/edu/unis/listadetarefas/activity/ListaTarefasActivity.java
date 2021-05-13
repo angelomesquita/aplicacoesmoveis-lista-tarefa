@@ -2,11 +2,14 @@ package br.edu.unis.listadetarefas.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +21,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import br.edu.unis.listadetarefas.R;
 import br.edu.unis.listadetarefas.adapter.ListaTarefaAdapter;
 import br.edu.unis.listadetarefas.model.Tarefa;
-import br.edu.unis.listadetarefas.model.TarefaDAO;
+import br.edu.unis.listadetarefas.room.TarefaDatabase;
+import br.edu.unis.listadetarefas.room.dao.RoomTarefaDAO;
 
 
 public class ListaTarefasActivity extends AppCompatActivity {
@@ -26,7 +30,7 @@ public class ListaTarefasActivity extends AppCompatActivity {
     private ListView listaTarefa;
     private FloatingActionButton fabAddTarefa;
     private ListaTarefaAdapter adapter;
-    final static TarefaDAO dao = new TarefaDAO();
+    private RoomTarefaDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,11 @@ public class ListaTarefasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_tarefas);
         carregarWidgets();
         configurarFABAddTarefa();
+
+        this.dao = Room.databaseBuilder(this, TarefaDatabase.class, "listadetarefas.db")
+                .allowMainThreadQueries()
+                .build()
+                .getRoomTarefaDAO();
     }
 
     @Override
@@ -49,9 +58,29 @@ public class ListaTarefasActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.lista_tarefas_menu_sair, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         selecionarAcaoMenuContexto(item);
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        SharedPreferences preferencias = getSharedPreferences("credenciais", MODE_PRIVATE);
+
+        if (preferencias.contains("credencial_usuario")) {
+            preferencias.edit()
+                    .clear()
+                    .commit();
+        }
+
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
     private void selecionarAcaoMenuContexto(@NonNull MenuItem item) {

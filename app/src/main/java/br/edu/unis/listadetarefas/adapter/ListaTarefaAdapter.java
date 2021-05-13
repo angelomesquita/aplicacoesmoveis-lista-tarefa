@@ -8,13 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.edu.unis.listadetarefas.R;
 import br.edu.unis.listadetarefas.model.Tarefa;
 
 public class ListaTarefaAdapter extends BaseAdapter {
 
-    private final ArrayList<Tarefa> tarefas = new ArrayList<>();
+    private final List<Tarefa> tarefas = new ArrayList<>();
     private final Context context;
 
     public ListaTarefaAdapter(Context context) {
@@ -61,7 +62,7 @@ public class ListaTarefaAdapter extends BaseAdapter {
         this.tarefas.clear();
     }
 
-    public void addAll(ArrayList<Tarefa> tarefas) {
+    public void addAll(List<Tarefa> tarefas) {
         this.tarefas.addAll(tarefas);
     }
 }
