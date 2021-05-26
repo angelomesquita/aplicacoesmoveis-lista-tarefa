@@ -2,7 +2,7 @@ package br.edu.unis.listadetarefas.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -137,6 +137,7 @@ public class ListaTarefasActivity extends AppCompatActivity {
     private void instaciarRoom() {
         this.dao = TarefaDatabase.getInstance(this);
     }
+
     private void recarregarAdapter() {
         adapter.clear();
         adapter.addAll(dao.buscarTodos());

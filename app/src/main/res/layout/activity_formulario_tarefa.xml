@@ -33,5 +33,16 @@
             android:hint="Digite a descricao da tarefa"
             android:autofillHints="" />
 
+        <EditText
+            android:id="@+id/edit_add_prazo_tarefa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:ems="10"
+            android:inputType="textCapWords"
+            android:hint="Digite o prazo da tarefa"
+            android:autofillHints="" />
+
     </LinearLayout>
 </ScrollView>

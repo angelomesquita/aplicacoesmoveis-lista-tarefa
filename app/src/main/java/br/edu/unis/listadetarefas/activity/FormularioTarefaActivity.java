@@ -2,7 +2,6 @@ package br.edu.unis.listadetarefas.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -18,7 +17,7 @@ import br.edu.unis.listadetarefas.room.dao.RoomTarefaDAO;
 
 public class FormularioTarefaActivity extends AppCompatActivity {
 
-    EditText editTituloTarefa, editDescricaoTarefa;
+    EditText editTituloTarefa, editDescricaoTarefa, editPrazoTarefa;
     Tarefa tarefa;
     private RoomTarefaDAO dao;
 
@@ -63,6 +62,7 @@ public class FormularioTarefaActivity extends AppCompatActivity {
     private void carregarWidgets() {
         editTituloTarefa = findViewById(R.id.edit_add_titulo_tarefa);
         editDescricaoTarefa = findViewById(R.id.edit_add_descricao_tarefa);
+        editPrazoTarefa = findViewById(R.id.edit_add_prazo_tarefa);
     }
 
     private boolean camposPreenchidos() {
@@ -90,6 +90,7 @@ public class FormularioTarefaActivity extends AppCompatActivity {
 
             editTituloTarefa.setText(tarefa.getTitulo());
             editDescricaoTarefa.setText(tarefa.getDescricao());
+            editPrazoTarefa.setText(tarefa.getPrazo());
         }
     }
 
@@ -105,10 +106,12 @@ public class FormularioTarefaActivity extends AppCompatActivity {
         if (ehEdicaoTarefa()) {
             tarefa.setTitulo(editTituloTarefa.getText().toString());
             tarefa.setDescricao(editDescricaoTarefa.getText().toString());
+            tarefa.setPrazo(editPrazoTarefa.getText().toString());
         } else {
             tarefa = new Tarefa(
-                    editTituloTarefa.getText().toString(),
-                    editDescricaoTarefa.getText().toString()
+                editTituloTarefa.getText().toString(),
+                editDescricaoTarefa.getText().toString(),
+                editPrazoTarefa.getText().toString()
             );
         }
     }

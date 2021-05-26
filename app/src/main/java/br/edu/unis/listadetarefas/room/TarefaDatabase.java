@@ -17,6 +17,7 @@ public abstract class TarefaDatabase extends RoomDatabase {
     private static final String BANCO_DE_DADOS = "listadetarefas.db";
 
     public static RoomTarefaDAO getInstance(Context contexto) {
+
         return Room.databaseBuilder(
                 contexto,
                 TarefaDatabase.class,

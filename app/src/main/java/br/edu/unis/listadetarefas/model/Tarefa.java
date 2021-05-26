@@ -13,13 +13,12 @@ public class Tarefa implements Serializable {
 
     private String titulo;
     private String descricao;
-    private static int contadorId = 1;
+    private String prazo;
 
-    public Tarefa(String titulo, String descricao) {
+    public Tarefa(String titulo, String descricao, String prazo) {
         this.titulo = titulo;
         this.descricao = descricao;
-        this.id = contadorId;
-        contadorId++;
+        this.prazo = prazo;
     }
 
     public int getId() {
@@ -34,6 +33,10 @@ public class Tarefa implements Serializable {
         return descricao;
     }
 
+    public String getPrazo() {
+        return prazo;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -46,4 +49,7 @@ public class Tarefa implements Serializable {
         this.descricao = descricao;
     }
 
+    public void setPrazo(String prazo) {
+        this.prazo = prazo;
+    }
 }
