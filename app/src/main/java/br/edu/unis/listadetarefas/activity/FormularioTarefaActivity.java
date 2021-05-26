@@ -29,12 +29,7 @@ public class FormularioTarefaActivity extends AppCompatActivity {
         setTitle("Cadastrar Tarefa");
         carregarWidgets();
         verificarTemExtra();
-
-        dao = Room.databaseBuilder(this, TarefaDatabase.class, "listadetarefas.db")
-                .allowMainThreadQueries()
-                .build()
-                .getRoomTarefaDAO();
-
+        instanciarRoom();
     }
 
     @Override
@@ -96,6 +91,10 @@ public class FormularioTarefaActivity extends AppCompatActivity {
             editTituloTarefa.setText(tarefa.getTitulo());
             editDescricaoTarefa.setText(tarefa.getDescricao());
         }
+    }
+
+    private void instanciarRoom() {
+        this.dao = TarefaDatabase.getInstance(this);
     }
 
     private boolean ehEdicaoTarefa() {

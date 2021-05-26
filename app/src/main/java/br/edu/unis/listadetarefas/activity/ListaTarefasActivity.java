@@ -39,11 +39,7 @@ public class ListaTarefasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_tarefas);
         carregarWidgets();
         configurarFABAddTarefa();
-
-        this.dao = Room.databaseBuilder(this, TarefaDatabase.class, "listadetarefas.db")
-                .allowMainThreadQueries()
-                .build()
-                .getRoomTarefaDAO();
+        instaciarRoom();
     }
 
     @Override
@@ -138,6 +134,9 @@ public class ListaTarefasActivity extends AppCompatActivity {
         configurarAcaoClickLista();
     }
 
+    private void instaciarRoom() {
+        this.dao = TarefaDatabase.getInstance(this);
+    }
     private void recarregarAdapter() {
         adapter.clear();
         adapter.addAll(dao.buscarTodos());
