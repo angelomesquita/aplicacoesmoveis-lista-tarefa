@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import br.edu.unis.listadetarefas.R;
+import br.edu.unis.listadetarefas.model.MinhasPreferencias;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -46,8 +47,9 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private boolean temCredenciaisSalvas() {
-        SharedPreferences credenciais = getSharedPreferences("credenciais", MODE_PRIVATE);
-        if (credenciais.contains("credencial_usuario")) {
+        SharedPreferences credenciais = MinhasPreferencias.getMinhasPreferencias(this);
+
+        if (credenciais.contains(MinhasPreferencias.PREFERENCIA_USUARIO)) {
             return true;
         }
 

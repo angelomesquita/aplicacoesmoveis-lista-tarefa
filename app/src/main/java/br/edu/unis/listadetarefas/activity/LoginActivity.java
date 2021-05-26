@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import br.edu.unis.listadetarefas.R;
+import br.edu.unis.listadetarefas.model.MinhasPreferencias;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -86,10 +87,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void salvarPreferencias() {
-        SharedPreferences credenciais = getSharedPreferences("credenciais", MODE_PRIVATE);
-        SharedPreferences.Editor editor = credenciais.edit();
-
-        editor.putString("credencial_usuario", txtUsuario.getText().toString());
+        SharedPreferences.Editor editor = MinhasPreferencias.getMinhasPreferenciasEditor(this);
+        editor.putString(MinhasPreferencias.PREFERENCIA_USUARIO, txtUsuario.getText().toString());
         editor.commit();
     }
 

@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import br.edu.unis.listadetarefas.R;
 import br.edu.unis.listadetarefas.adapter.ListaTarefaAdapter;
+import br.edu.unis.listadetarefas.model.MinhasPreferencias;
 import br.edu.unis.listadetarefas.model.Tarefa;
 import br.edu.unis.listadetarefas.room.TarefaDatabase;
 import br.edu.unis.listadetarefas.room.dao.RoomTarefaDAO;
@@ -71,9 +72,9 @@ public class ListaTarefasActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        SharedPreferences preferencias = getSharedPreferences("credenciais", MODE_PRIVATE);
+        SharedPreferences preferencias = MinhasPreferencias.getMinhasPreferencias(this);
 
-        if (preferencias.contains("credencial_usuario")) {
+        if (preferencias.contains(MinhasPreferencias.PREFERENCIA_USUARIO)) {
             preferencias.edit()
                     .clear()
                     .commit();
