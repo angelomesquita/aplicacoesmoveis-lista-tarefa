@@ -2,7 +2,6 @@ package br.edu.unis.listadetarefas.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.RoomDatabase;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -21,7 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import br.edu.unis.listadetarefas.R;
 import br.edu.unis.listadetarefas.adapter.ListaTarefaAdapter;
 import br.edu.unis.listadetarefas.model.MinhasPreferencias;
-import br.edu.unis.listadetarefas.model.Tarefa;
+import br.edu.unis.listadetarefas.room.entity.Tarefa;
 import br.edu.unis.listadetarefas.room.TarefaDatabase;
 import br.edu.unis.listadetarefas.room.dao.RoomTarefaDAO;
 

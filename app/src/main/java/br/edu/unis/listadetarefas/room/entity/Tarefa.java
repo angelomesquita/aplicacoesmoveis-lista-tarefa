@@ -1,4 +1,4 @@
-package br.edu.unis.listadetarefas.model;
+package br.edu.unis.listadetarefas.room.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

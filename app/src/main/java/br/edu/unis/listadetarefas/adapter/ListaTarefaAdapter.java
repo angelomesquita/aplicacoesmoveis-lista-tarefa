@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.unis.listadetarefas.R;
-import br.edu.unis.listadetarefas.model.Tarefa;
+import br.edu.unis.listadetarefas.room.entity.Tarefa;
 
 public class ListaTarefaAdapter extends BaseAdapter {
 

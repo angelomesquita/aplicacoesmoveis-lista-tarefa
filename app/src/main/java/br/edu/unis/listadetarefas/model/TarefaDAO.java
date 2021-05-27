@@ -2,6 +2,8 @@ package br.edu.unis.listadetarefas.model;
 
 import java.util.ArrayList;
 
+import br.edu.unis.listadetarefas.room.entity.Tarefa;
+
 public class TarefaDAO {
 
     final static ArrayList<Tarefa> tarefas = new ArrayList<>();

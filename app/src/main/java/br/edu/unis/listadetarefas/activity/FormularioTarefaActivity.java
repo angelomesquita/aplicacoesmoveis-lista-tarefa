@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import br.edu.unis.listadetarefas.R;
-import br.edu.unis.listadetarefas.model.Tarefa;
+import br.edu.unis.listadetarefas.room.entity.Tarefa;
 import br.edu.unis.listadetarefas.room.TarefaDatabase;
 import br.edu.unis.listadetarefas.room.dao.RoomTarefaDAO;
 

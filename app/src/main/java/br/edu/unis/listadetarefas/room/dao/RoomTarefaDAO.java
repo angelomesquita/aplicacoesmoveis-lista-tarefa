@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import br.edu.unis.listadetarefas.model.Tarefa;
+import br.edu.unis.listadetarefas.room.entity.Tarefa;
 import java.util.List;
 
 @Dao
