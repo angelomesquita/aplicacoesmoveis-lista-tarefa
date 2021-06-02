@@ -33,7 +33,7 @@
             android:hint="Digite a descricao da tarefa"
             android:autofillHints="" />
 
-        <EditText
+        <!--<EditText
             android:id="@+id/edit_add_prazo_tarefa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:ems="10"
             android:inputType="textCapWords"
             android:hint="Digite o prazo da tarefa"
-            android:autofillHints="" />
+            android:autofillHints="" />-->
 
     </LinearLayout>
 </ScrollView>

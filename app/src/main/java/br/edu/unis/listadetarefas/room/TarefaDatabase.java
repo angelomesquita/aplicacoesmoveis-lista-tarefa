@@ -13,7 +13,7 @@ import br.edu.unis.listadetarefas.room.entity.Tarefa;
 import br.edu.unis.listadetarefas.room.dao.RoomTarefaDAO;
 import br.edu.unis.listadetarefas.room.entity.Usuario;
 
-@Database(entities = {Tarefa.class, Usuario.class}, version = 2)
+@Database(entities = {Tarefa.class, Usuario.class}, version = 3)
 public abstract class TarefaDatabase extends RoomDatabase {
 
     public abstract RoomTarefaDAO getRoomTarefaDAO();
@@ -29,7 +29,7 @@ public abstract class TarefaDatabase extends RoomDatabase {
         )
             .allowMainThreadQueries()
             //.fallbackToDestructiveMigration()
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
             .getRoomTarefaDAO();
     }
@@ -40,6 +40,24 @@ public abstract class TarefaDatabase extends RoomDatabase {
             database.execSQL(
                 "CREATE TABLE IF NOT EXISTS `Usuario` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `usuario` TEXT, `senha` TEXT)"
             );
+        }
+    };
+
+    private static final Migration MIGRATION_2_3 = new Migration(2,3) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+
+            database.execSQL(
+                "CREATE TABLE IF NOT EXISTS `Tarefanova` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `titulo` TEXT, `descricao` TEXT)"
+            );
+
+            database.execSQL("INSERT INTO Tarefanova (id, titulo, descricao) " +
+                "SELECT id, titulo, descricao FROM Tarefa"
+            );
+
+            database.execSQL("DROP TABLE Tarefa");
+
+            database.execSQL("ALTER TABLE TarefaNova RENAME TO Tarefa");
         }
     };
 }
