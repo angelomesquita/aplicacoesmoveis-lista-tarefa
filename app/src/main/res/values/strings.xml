@@ -6,4 +6,5 @@
     <string name="hint_digite_seu_usuario">Digite seu usuário</string>
     <string name="hint_digite_sua_senha">Digite sua senha</string>
     <string name="texto_botao_entrar">Entrar</string>
+    <string name="texto_botao_criar_usuario">Criar Usuário</string>
 </resources>

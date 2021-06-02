@@ -27,7 +27,7 @@ import br.edu.unis.listadetarefas.room.entity.Usuario;
 public class LoginActivity extends AppCompatActivity {
 
     EditText txtUsuario, txtSenha;
-    Button btnEntrar;
+    Button btnEntrar, btnCriarUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +37,14 @@ public class LoginActivity extends AppCompatActivity {
 
         carregarWidgets();
         configurarClickBotaoEntrar();
+        configurarClickBotaoCriarUsuario();
     }
 
     private void carregarWidgets() {
         txtUsuario = findViewById(R.id.login_usuario);
         txtSenha = findViewById(R.id.login_senha);
         btnEntrar = findViewById(R.id.login_botao_entrar);
+        btnCriarUsuario = findViewById(R.id.login_botao_criar_usuario);
     }
 
     private void configurarClickBotaoEntrar() {
@@ -58,6 +60,15 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     autenticar();
                 }
+            }
+        });
+    }
+
+    private void configurarClickBotaoCriarUsuario() {
+        btnCriarUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, FormularioUsuarioActivity.class));
             }
         });
     }
