@@ -22,6 +22,9 @@ public interface RoomUsuarioDAO {
     @Query("SELECT * FROM Usuario")
     List<Usuario> buscarTodos();
 
+    @Query("SELECT * FROM Usuario WHERE usuario = :usuario AND senha = :senha")
+    Usuario autenticarUsuario(String usuario, String senha);
+
     @Delete
     void remover(Usuario usuario);
 

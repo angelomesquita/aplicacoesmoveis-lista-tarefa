@@ -95,7 +95,7 @@ public class FormularioTarefaActivity extends AppCompatActivity {
     }
 
     private void instanciarRoom() {
-        this.dao = TarefaDatabase.getInstance(this);
+        this.dao = TarefaDatabase.getTarefaDAOInstance(this);
     }
 
     private boolean ehEdicaoTarefa() {

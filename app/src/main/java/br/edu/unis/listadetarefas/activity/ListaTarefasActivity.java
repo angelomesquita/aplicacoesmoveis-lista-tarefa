@@ -134,7 +134,7 @@ public class ListaTarefasActivity extends AppCompatActivity {
     }
 
     private void instaciarRoom() {
-        this.dao = TarefaDatabase.getInstance(this);
+        this.dao = TarefaDatabase.getTarefaDAOInstance(this);
     }
 
     private void recarregarAdapter() {

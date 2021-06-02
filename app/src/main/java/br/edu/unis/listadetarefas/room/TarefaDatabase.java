@@ -9,6 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import br.edu.unis.listadetarefas.room.dao.RoomUsuarioDAO;
 import br.edu.unis.listadetarefas.room.entity.Tarefa;
 import br.edu.unis.listadetarefas.room.dao.RoomTarefaDAO;
 import br.edu.unis.listadetarefas.room.entity.Usuario;
@@ -17,10 +18,11 @@ import br.edu.unis.listadetarefas.room.entity.Usuario;
 public abstract class TarefaDatabase extends RoomDatabase {
 
     public abstract RoomTarefaDAO getRoomTarefaDAO();
+    public abstract RoomUsuarioDAO getRoomUsuarioDAO();
 
     private static final String BANCO_DE_DADOS = "listadetarefas.db";
 
-    public static RoomTarefaDAO getInstance(Context contexto) {
+    public static RoomTarefaDAO getTarefaDAOInstance(Context contexto) {
 
         return Room.databaseBuilder(
                 contexto,
@@ -32,6 +34,20 @@ public abstract class TarefaDatabase extends RoomDatabase {
             .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
             .getRoomTarefaDAO();
+    }
+
+    public static RoomUsuarioDAO getUsuarioDAOInstance(Context contexto) {
+
+        return Room.databaseBuilder(
+                contexto,
+                TarefaDatabase.class,
+                TarefaDatabase.BANCO_DE_DADOS
+        )
+                .allowMainThreadQueries()
+                //.fallbackToDestructiveMigration()
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                .build()
+                .getRoomUsuarioDAO();
     }
 
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
