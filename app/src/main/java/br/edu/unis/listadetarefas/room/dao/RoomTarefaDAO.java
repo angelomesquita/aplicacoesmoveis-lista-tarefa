@@ -18,8 +18,8 @@ public interface RoomTarefaDAO {
     @Update
     void editar(Tarefa tarefa);
 
-    @Query("SELECT * FROM Tarefa")
-    List<Tarefa> buscarTodos();
+    @Query("SELECT * FROM Tarefa WHERE usuario = :usuario")
+    List<Tarefa> buscarTodos(String usuario);
 
     @Delete
     void remover(Tarefa tarefa);

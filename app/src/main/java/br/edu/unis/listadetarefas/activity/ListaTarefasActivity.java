@@ -139,7 +139,7 @@ public class ListaTarefasActivity extends AppCompatActivity {
 
     private void recarregarAdapter() {
         adapter.clear();
-        adapter.addAll(dao.buscarTodos());
+        adapter.addAll(dao.buscarTodos(MinhasPreferencias.getUsuarioLogado(this)));
     }
 
     private void configurarAdapterLista() {

@@ -13,12 +13,14 @@ public class Tarefa implements Serializable {
 
     private String titulo;
     private String descricao;
+    private String usuario;
     //private String prazo;
 
     public Tarefa(String titulo, String descricao/*, String prazo*/) {
         this.titulo = titulo;
         this.descricao = descricao;
         //this.prazo = prazo;
+        //this.usuario = ;
     }
 
     public int getId() {
@@ -37,6 +39,10 @@ public class Tarefa implements Serializable {
         return prazo;
     }*/
 
+    public String getUsuario() {
+        return usuario;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -52,4 +58,8 @@ public class Tarefa implements Serializable {
     /*public void setPrazo(String prazo) {
         this.prazo = prazo;
     }*/
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 }

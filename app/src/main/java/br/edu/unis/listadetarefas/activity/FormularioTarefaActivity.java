@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import br.edu.unis.listadetarefas.R;
+import br.edu.unis.listadetarefas.model.MinhasPreferencias;
 import br.edu.unis.listadetarefas.room.entity.Tarefa;
 import br.edu.unis.listadetarefas.room.TarefaDatabase;
 import br.edu.unis.listadetarefas.room.dao.RoomTarefaDAO;
@@ -107,12 +108,15 @@ public class FormularioTarefaActivity extends AppCompatActivity {
             tarefa.setTitulo(editTituloTarefa.getText().toString());
             tarefa.setDescricao(editDescricaoTarefa.getText().toString());
             //tarefa.setPrazo(editPrazoTarefa.getText().toString());
+            tarefa.setUsuario(MinhasPreferencias.getUsuarioLogado(this));
+
         } else {
             tarefa = new Tarefa(
                 editTituloTarefa.getText().toString(),
                 editDescricaoTarefa.getText().toString()//,
                 //editPrazoTarefa.getText().toString()
             );
+            tarefa.setUsuario(MinhasPreferencias.getUsuarioLogado(this));
         }
     }
 

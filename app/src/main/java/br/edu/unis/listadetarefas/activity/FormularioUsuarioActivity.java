@@ -3,6 +3,8 @@ package br.edu.unis.listadetarefas.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import br.edu.unis.listadetarefas.R;
+import br.edu.unis.listadetarefas.model.MinhasPreferencias;
 import br.edu.unis.listadetarefas.room.TarefaDatabase;
 import br.edu.unis.listadetarefas.room.dao.RoomUsuarioDAO;
 import br.edu.unis.listadetarefas.room.entity.Usuario;
@@ -91,7 +94,15 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
         "Usuário criado com sucesso",
         Toast.LENGTH_SHORT).show();
 
+        this.salvarPreferencias();
         finish();
 
     }
+
+    private void salvarPreferencias() {
+        SharedPreferences.Editor editor = MinhasPreferencias.getMinhasPreferenciasEditor(this);
+        editor.putString(MinhasPreferencias.PREFERENCIA_USUARIO, editUsuario.getText().toString());
+        editor.commit();
+    }
+
 }

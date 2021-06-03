@@ -22,4 +22,13 @@ public class MinhasPreferencias {
         ).edit();
     }
 
+    public static String getUsuarioLogado(Context contexto) {
+        SharedPreferences sp = contexto.getSharedPreferences(
+            MinhasPreferencias.TIPO_PREFERENCIA,
+            contexto.MODE_PRIVATE
+        );
+
+        return sp.getString(MinhasPreferencias.PREFERENCIA_USUARIO, "visitante");
+    }
+
 }

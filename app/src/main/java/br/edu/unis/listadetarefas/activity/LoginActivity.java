@@ -40,6 +40,14 @@ public class LoginActivity extends AppCompatActivity {
         configurarClickBotaoCriarUsuario();
     }
 
+    @Override
+    protected void onResume() {
+        if (temCredenciaisSalvas()) {
+            abreListaDeTarefas();
+        }
+        super.onResume();
+    }
+
     private void carregarWidgets() {
         txtUsuario = findViewById(R.id.login_usuario);
         txtSenha = findViewById(R.id.login_senha);
@@ -121,6 +129,17 @@ public class LoginActivity extends AppCompatActivity {
                 ListaTarefasActivity.class
         ));
     }
+
+    private boolean temCredenciaisSalvas() {
+        SharedPreferences credenciais = MinhasPreferencias.getMinhasPreferencias(this);
+
+        if (credenciais.contains(MinhasPreferencias.PREFERENCIA_USUARIO)) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
 
 
