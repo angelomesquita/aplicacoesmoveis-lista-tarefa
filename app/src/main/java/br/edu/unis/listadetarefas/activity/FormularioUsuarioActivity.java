@@ -12,6 +12,7 @@ import android.widget.Toast;
 import br.edu.unis.listadetarefas.R;
 import br.edu.unis.listadetarefas.room.TarefaDatabase;
 import br.edu.unis.listadetarefas.room.dao.RoomUsuarioDAO;
+import br.edu.unis.listadetarefas.room.entity.Usuario;
 
 public class FormularioUsuarioActivity extends AppCompatActivity {
 
@@ -57,10 +58,7 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
 
     private void validarCamposPreenchidos() {
         if (camposPreenchidos() && senhasSaoIguais()) {
-            Toast.makeText(
-                    FormularioUsuarioActivity.this,
-                    "Legal, vamos salvar o usuário entao",
-                    Toast.LENGTH_SHORT).show();
+            persistirUsuario();
         } else {
             Toast.makeText(
             FormularioUsuarioActivity.this,
@@ -79,5 +77,21 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
         return editSenha.getText().toString().equals(
             editRepitaSenha.getText().toString()
         );
+    }
+
+    private void persistirUsuario() {
+        String usuario = editUsuario.getText().toString();
+        String senha = editSenha.getText().toString();
+
+        Usuario usuarioCriado = new Usuario(usuario, senha);
+        this.dao.salvar(usuarioCriado);
+
+        Toast.makeText(
+        FormularioUsuarioActivity.this,
+        "Usuário criado com sucesso",
+        Toast.LENGTH_SHORT).show();
+
+        finish();
+
     }
 }
