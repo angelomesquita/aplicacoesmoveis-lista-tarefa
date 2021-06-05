@@ -4,6 +4,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 @Entity
 public class Tarefa implements Serializable {
@@ -14,13 +15,12 @@ public class Tarefa implements Serializable {
     private String titulo;
     private String descricao;
     private String usuario;
-    //private String prazo;
+    private Calendar prazo = Calendar.getInstance();
 
-    public Tarefa(String titulo, String descricao/*, String prazo*/) {
+    public Tarefa(String titulo, String descricao/*, Calendar prazo*/) {
         this.titulo = titulo;
         this.descricao = descricao;
         //this.prazo = prazo;
-        //this.usuario = ;
     }
 
     public int getId() {
@@ -35,9 +35,9 @@ public class Tarefa implements Serializable {
         return descricao;
     }
 
-    /*public String getPrazo() {
+    public Calendar getPrazo() {
         return prazo;
-    }*/
+    }
 
     public String getUsuario() {
         return usuario;
@@ -55,9 +55,9 @@ public class Tarefa implements Serializable {
         this.descricao = descricao;
     }
 
-    /*public void setPrazo(String prazo) {
+    public void setPrazo(Calendar prazo) {
         this.prazo = prazo;
-    }*/
+    }
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;

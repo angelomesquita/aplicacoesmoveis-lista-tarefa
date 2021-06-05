@@ -6,15 +6,18 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import br.edu.unis.listadetarefas.helper.Conversor;
 import br.edu.unis.listadetarefas.room.dao.RoomUsuarioDAO;
 import br.edu.unis.listadetarefas.room.entity.Tarefa;
 import br.edu.unis.listadetarefas.room.dao.RoomTarefaDAO;
 import br.edu.unis.listadetarefas.room.entity.Usuario;
 
-@Database(entities = {Tarefa.class, Usuario.class}, version = 4)
+@Database(entities = {Tarefa.class, Usuario.class}, version = 5)
+@TypeConverters({Conversor.class})
 public abstract class TarefaDatabase extends RoomDatabase {
 
     public abstract RoomTarefaDAO getRoomTarefaDAO();
@@ -45,7 +48,7 @@ public abstract class TarefaDatabase extends RoomDatabase {
         )
                 .allowMainThreadQueries()
                 //.fallbackToDestructiveMigration()
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                 .build()
                 .getRoomUsuarioDAO();
     }
@@ -81,6 +84,13 @@ public abstract class TarefaDatabase extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE Tarefa ADD COLUMN `usuario` TEXT");
+        }
+    };
+
+    private static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE Tarefa ADD COLUMN `prazo` INTEGER");
         }
     };
 }

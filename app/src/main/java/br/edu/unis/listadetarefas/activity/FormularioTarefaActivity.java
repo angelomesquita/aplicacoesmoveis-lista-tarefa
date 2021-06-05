@@ -10,7 +10,10 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import br.edu.unis.listadetarefas.R;
+import br.edu.unis.listadetarefas.helper.Conversor;
 import br.edu.unis.listadetarefas.model.MinhasPreferencias;
 import br.edu.unis.listadetarefas.room.entity.Tarefa;
 import br.edu.unis.listadetarefas.room.TarefaDatabase;
@@ -21,6 +24,7 @@ public class FormularioTarefaActivity extends AppCompatActivity {
     EditText editTituloTarefa, editDescricaoTarefa, editPrazoTarefa;
     Tarefa tarefa;
     private RoomTarefaDAO dao;
+    private Conversor conversorDeData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,7 @@ public class FormularioTarefaActivity extends AppCompatActivity {
         carregarWidgets();
         verificarTemExtra();
         instanciarRoom();
+        this.conversorDeData = new Conversor();
     }
 
     @Override
@@ -63,7 +68,7 @@ public class FormularioTarefaActivity extends AppCompatActivity {
     private void carregarWidgets() {
         editTituloTarefa = findViewById(R.id.edit_add_titulo_tarefa);
         editDescricaoTarefa = findViewById(R.id.edit_add_descricao_tarefa);
-        //editPrazoTarefa = findViewById(R.id.edit_add_prazo_tarefa);
+        editPrazoTarefa = findViewById(R.id.edit_add_prazo_tarefa);
     }
 
     private boolean camposPreenchidos() {
@@ -107,14 +112,13 @@ public class FormularioTarefaActivity extends AppCompatActivity {
         if (ehEdicaoTarefa()) {
             tarefa.setTitulo(editTituloTarefa.getText().toString());
             tarefa.setDescricao(editDescricaoTarefa.getText().toString());
-            //tarefa.setPrazo(editPrazoTarefa.getText().toString());
+            //tarefa.setPrazo(conversorDeData.paraCalendar(editPrazoTarefa.getText()); // 06/06/2021
             tarefa.setUsuario(MinhasPreferencias.getUsuarioLogado(this));
 
         } else {
             tarefa = new Tarefa(
                 editTituloTarefa.getText().toString(),
-                editDescricaoTarefa.getText().toString()//,
-                //editPrazoTarefa.getText().toString()
+                editDescricaoTarefa.getText().toString()//, editPrazoTarefa.getText()
             );
             tarefa.setUsuario(MinhasPreferencias.getUsuarioLogado(this));
         }
