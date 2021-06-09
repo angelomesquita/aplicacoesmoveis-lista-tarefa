@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.Calendar;
+import java.text.ParseException;
 
 import br.edu.unis.listadetarefas.R;
 import br.edu.unis.listadetarefas.helper.Conversor;
@@ -45,16 +45,20 @@ public class FormularioTarefaActivity extends AppCompatActivity {
 
     @SuppressLint("NonConstantResourceId")
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)  {
         switch (item.getItemId()) {
             case R.id.formulario_tarefa_menu_salvar:
-                validarCamposPreenchidos();
+                try {
+                    validarCamposPreenchidos();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void validarCamposPreenchidos() {
+    private void validarCamposPreenchidos() throws ParseException {
         if (camposPreenchidos()) {
             persistirTarefa();
         } else {
@@ -76,7 +80,7 @@ public class FormularioTarefaActivity extends AppCompatActivity {
             && !editDescricaoTarefa.getText().toString().isEmpty();
     }
 
-    private void persistirTarefa() {
+    private void persistirTarefa() throws ParseException {
         popularTarefa();
         if (ehEdicaoTarefa()) {
             editarTarefa();
@@ -96,7 +100,7 @@ public class FormularioTarefaActivity extends AppCompatActivity {
 
             editTituloTarefa.setText(tarefa.getTitulo());
             editDescricaoTarefa.setText(tarefa.getDescricao());
-            //editPrazoTarefa.setText(tarefa.getPrazo());
+            editPrazoTarefa.setText(Conversor.calendarParaString(tarefa.getPrazo()));
         }
     }
 
@@ -108,17 +112,18 @@ public class FormularioTarefaActivity extends AppCompatActivity {
         return getIntent().hasExtra("tarefaSelecionada");
     }
 
-    private void popularTarefa() {
+    private void popularTarefa() throws ParseException {
         if (ehEdicaoTarefa()) {
             tarefa.setTitulo(editTituloTarefa.getText().toString());
             tarefa.setDescricao(editDescricaoTarefa.getText().toString());
-            //tarefa.setPrazo(conversorDeData.paraCalendar(editPrazoTarefa.getText()); // 06/06/2021
+            tarefa.setPrazo(Conversor.stringParaCalendar(editPrazoTarefa.getText().toString()));
             tarefa.setUsuario(MinhasPreferencias.getUsuarioLogado(this));
 
         } else {
             tarefa = new Tarefa(
                 editTituloTarefa.getText().toString(),
-                editDescricaoTarefa.getText().toString()//, editPrazoTarefa.getText()
+                editDescricaoTarefa.getText().toString(),
+                Conversor.stringParaCalendar(editPrazoTarefa.getText().toString())
             );
             tarefa.setUsuario(MinhasPreferencias.getUsuarioLogado(this));
         }

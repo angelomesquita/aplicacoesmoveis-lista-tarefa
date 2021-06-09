@@ -15,12 +15,12 @@ public class Tarefa implements Serializable {
     private String titulo;
     private String descricao;
     private String usuario;
-    private Calendar prazo = Calendar.getInstance();
+    private Calendar prazo;
 
-    public Tarefa(String titulo, String descricao/*, Calendar prazo*/) {
+    public Tarefa(String titulo, String descricao, Calendar prazo) {
         this.titulo = titulo;
         this.descricao = descricao;
-        //this.prazo = prazo;
+        this.prazo = prazo;
     }
 
     public int getId() {
