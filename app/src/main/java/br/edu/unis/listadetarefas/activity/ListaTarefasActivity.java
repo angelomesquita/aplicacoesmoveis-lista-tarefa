@@ -19,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import br.edu.unis.listadetarefas.R;
 import br.edu.unis.listadetarefas.adapter.ListaTarefaAdapter;
+import br.edu.unis.listadetarefas.asynctask.BuscarTarefasTask;
 import br.edu.unis.listadetarefas.model.MinhasPreferencias;
 import br.edu.unis.listadetarefas.room.entity.Tarefa;
 import br.edu.unis.listadetarefas.room.TarefaDatabase;
@@ -44,6 +45,7 @@ public class ListaTarefasActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         configurarListaTarefas();
     }
 
@@ -138,8 +140,7 @@ public class ListaTarefasActivity extends AppCompatActivity {
     }
 
     private void recarregarAdapter() {
-        adapter.clear();
-        adapter.addAll(dao.buscarTodos(MinhasPreferencias.getUsuarioLogado(this)));
+        new BuscarTarefasTask(adapter, this.dao, this).execute();
     }
 
     private void configurarAdapterLista() {

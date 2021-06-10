@@ -64,5 +64,6 @@ public class ListaTarefaAdapter extends BaseAdapter {
 
     public void addAll(List<Tarefa> tarefas) {
         this.tarefas.addAll(tarefas);
+        notifyDataSetChanged();
     }
 }

@@ -32,7 +32,7 @@ public abstract class TarefaDatabase extends RoomDatabase {
                 TarefaDatabase.class,
                 TarefaDatabase.BANCO_DE_DADOS
         )
-            .allowMainThreadQueries()
+            //.allowMainThreadQueries()
             //.fallbackToDestructiveMigration()
             .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
             .build()
@@ -46,7 +46,7 @@ public abstract class TarefaDatabase extends RoomDatabase {
                 TarefaDatabase.class,
                 TarefaDatabase.BANCO_DE_DADOS
         )
-                .allowMainThreadQueries()
+                //.allowMainThreadQueries()
                 //.fallbackToDestructiveMigration()
                 .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                 .build()
